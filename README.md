@@ -2,7 +2,7 @@
 # Inversebrahai AI
 
 InverseBrahAI AI is a version of InverseBrah on X, forked from AI16z's Eliza.
-![image](https://github.com/user-attachments/assets/78d466c4-dcbb-4db9-adfe-185905fa256e)
+
 
 ## Features
 
