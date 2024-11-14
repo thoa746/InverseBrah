@@ -1,67 +1,76 @@
-# Eliza
 
-<img src="./docs/static/img/eliza_banner.jpg" alt="Eliza Banner" width="100%" />
+# Inversebrahai AI
 
-_As seen powering [@DegenSpartanAI](https://x.com/degenspartanai) and [@MarcAIndreessen](https://x.com/pmairca)_
+InverseBrahAI AI is a version of InverseBrah on X, forked from AI16z's Eliza.
 
-- Multi-agent simulation framework
-- Add as many unique characters as you want with [characterfile](https://github.com/lalalune/characterfile/)
-- Full-featured Discord and Twitter connectors, with Discord voice channel support
-- Full conversational and document RAG memory
-- Can read links and PDFs, transcribe audio and videos, summarize conversations, and more
-- Highly extensible - create your own actions and clients to extend Eliza's capabilities
-- Supports open source and local models (default configured with Nous Hermes Llama 3.1B)
-- Supports OpenAI for cloud inference on a light-weight device
-- "Ask Claude" mode for calling Claude on more complex queries
-- 100% Typescript
+![image](https://github.com/user-attachments/assets/2a307b1b-a545-4543-9a6a-bc3c1e5b8ae7)
+
+
+## Features
+
+-   🛠 Full-featured Discord, Twitter (X), and Telegram connectors
+-   👥 Multi-agent and room support
+-   📚 Easily ingest and interact with your documents
+-   💾 Retrievable memory and document store
+-   🚀 Highly extensible - create your own actions and clients to extend capabilities
+-   ☁️ Supports many models, including local Llama, OpenAI, Anthropic, Groq, and more
+-   📦 Just works!
+
+## Use Cases
+
+-   🤖 Chatbots
+-   🕵️ Autonomous Agents
+-   📈 Business process handling
+-   🎮 Video game NPCs
 
 # Getting Started
 
 **Prerequisites (MUST):**
+    
+-   [Python 2.7+](https://www.python.org/downloads/)
+-   [Node.js 23.1+](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+-   [pnpm](https://pnpm.io/installation)
 
-- [Node.js 23+](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-- [pnpm](https://pnpm.io/installation)
+### Configure the .env file
 
-### Edit the .env file
+-   Copy .env.example to .env and fill in the appropriate values
+-   Update the TWITTER environment variables with your bot's username and password
 
-- Copy .env.example to .env and fill in the appropriate values
-- Edit the TWITTER environment variables to add your bot's username and password
+### Configure the character file
 
-### Edit the character file
+-   Review `src/core/defaultCharacter.ts` for customization
+-   Optionally, load characters with `pnpm start --characters="path/to/your/character.json"` to run multiple bots.
 
-- Check out the file `src/core/defaultCharacter.ts` - you can modify this
-- You can also load characters with the `pnpm start --characters="path/to/your/character.json"` and run multiple bots at the same time.
-
-After setting up the .env file and character file, you can start the bot with the following command:
+After configuring .env and character files, start the bot:
 
 ```
 pnpm i
 pnpm start
 ```
 
-# Customising Eliza
+# Customizing Inversebrahai AI
 
 ### Adding custom actions
 
-To avoid git clashes in the core directory, we recommend adding custom actions to a `custom_actions` directory and then adding them to the `elizaConfig.yaml` file. See the `elizaConfig.example.yaml` file for an example.
+To prevent conflicts, add custom actions in a `custom_actions` directory and include them in `inversebrahaiConfig.yaml`. Refer to `inversebrahaiConfig.example.yaml` for guidance.
 
-## Running with different models
+## Using Different Models
 
-### Run with Llama
+### Llama
 
-You can run Llama 70B or 405B models by setting the `XAI_MODEL` environment variable to `meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo` or `meta-llama/Meta-Llama-3.1-405B-Instruct`
+Use Llama 70B or 405B by setting `XAI_MODEL` to `meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo` or `meta-llama/Meta-Llama-3.1-405B-Instruct`.
 
-### Run with Grok
+### Grok
 
-You can run Grok models by setting the `XAI_MODEL` environment variable to `grok-beta`
+Run Grok models by setting `XAI_MODEL` to `grok-beta`.
 
-### Run with OpenAI
+### OpenAI
 
-You can run OpenAI models by setting the `XAI_MODEL` environment variable to `gpt-4o-mini` or `gpt-4o`
+Set `XAI_MODEL` to `gpt-4o-mini` or `gpt-4o` to use OpenAI models.
 
 ## Additional Requirements
 
-You may need to install Sharp. If you see an error when starting up, try installing it with the following command:
+If startup errors occur, try installing Sharp:
 
 ```
 pnpm install --include=optional sharp
@@ -69,104 +78,71 @@ pnpm install --include=optional sharp
 
 # Environment Setup
 
-You will need to add environment variables to your .env file to connect to various platforms:
+Define necessary variables in .env:
 
 ```
-# Required environment variables
+# Required
 DISCORD_APPLICATION_ID=
-DISCORD_API_TOKEN= # Bot token
-OPENAI_API_KEY=sk-* # OpenAI API key, starting with sk-
-ELEVENLABS_XI_API_KEY= # API key from elevenlabs
+DISCORD_API_TOKEN=
+OPENAI_API_KEY=sk-*
 
 # ELEVENLABS SETTINGS
 ELEVENLABS_MODEL_ID=eleven_multilingual_v2
-ELEVENLABS_VOICE_ID=21m00Tcm4TlvDq8ikWAM
-ELEVENLABS_VOICE_STABILITY=0.5
-ELEVENLABS_VOICE_SIMILARITY_BOOST=0.9
-ELEVENLABS_VOICE_STYLE=0.66
-ELEVENLABS_VOICE_USE_SPEAKER_BOOST=false
-ELEVENLABS_OPTIMIZE_STREAMING_LATENCY=4
-ELEVENLABS_OUTPUT_FORMAT=pcm_16000
 
-TWITTER_DRY_RUN=false
-TWITTER_USERNAME= # Account username
-TWITTER_PASSWORD= # Account password
-TWITTER_EMAIL= # Account email
-TWITTER_COOKIES= # Account cookies
+TWITTER_USERNAME=
+TWITTER_PASSWORD=
+TWITTER_EMAIL=
 
-X_SERVER_URL=
 XAI_API_KEY=
 XAI_MODEL=
 
-
-# For asking Claude stuff
+# Claude
 ANTHROPIC_API_KEY=
 
-WALLET_SECRET_KEY=EXAMPLE_WALLET_SECRET_KEY
-WALLET_PUBLIC_KEY=EXAMPLE_WALLET_PUBLIC_KEY
-
+WALLET_PRIVATE_KEY=EXAMPLE_WALLET_PRIVATE_KEY
 BIRDEYE_API_KEY=
-
-SOL_ADDRESS=So11111111111111111111111111111111111111112
-SLIPPAGE=1
-RPC_URL=https://api.mainnet-beta.solana.com
-HELIUS_API_KEY=
-
-
-## Telegram
-TELEGRAM_BOT_TOKEN=
-
-TOGETHER_API_KEY=
 ```
 
-# Local Inference Setup
+# Local Inference
 
 ### CUDA Setup
 
-If you have an NVIDIA GPU, you can install CUDA to speed up local inference dramatically.
+If you have an NVIDIA GPU, install CUDA to enhance performance.
 
 ```
 pnpm install
 npx --no node-llama-cpp source download --gpu cuda
 ```
 
-Make sure that you've installed the CUDA Toolkit, including cuDNN and cuBLAS.
+Ensure CUDA Toolkit with cuDNN and cuBLAS is installed.
 
-### Running locally
+### Running Locally
 
-Add XAI_MODEL and set it to one of the above options from [Run with
-Llama](#run-with-llama) - you can leave X_SERVER_URL and XAI_API_KEY blank, it
-downloads the model from huggingface and queries it locally
+Set `XAI_MODEL` to a Llama option, leave `X_SERVER_URL` and `XAI_API_KEY` blank to download the model from huggingface for local use.
 
 # Clients
 
 ## Discord Bot
 
-For help with setting up your Discord Bot, check out here: https://discordjs.guide/preparations/setting-up-a-bot-application.html
+For Discord Bot setup, visit: https://discordjs.guide/preparations/setting-up-a-bot-application.html
 
 # Development
 
 ## Testing
 
-To run the test suite:
+To run tests:
 
 ```bash
 pnpm test           # Run tests once
-pnpm test:watch    # Run tests in watch mode
+pnpm test:watch     # Watch mode
 ```
 
-For database-specific tests:
+For database tests:
 
 ```bash
-pnpm test:sqlite   # Run tests with SQLite
-pnpm test:sqljs    # Run tests with SQL.js
+pnpm test:sqlite    # SQLite tests
+pnpm test:sqljs     # SQL.js tests
 ```
 
-Tests are written using Jest and can be found in `src/**/*.test.ts` files. The test environment is configured to:
+Tests use Jest, located in `src/**/*.test.ts`, configured to load `.env.test`, with a 2-minute timeout.
 
-- Load environment variables from `.env.test`
-- Use a 2-minute timeout for long-running tests
-- Support ESM modules
-- Run tests in sequence (--runInBand)
-
-To create new tests, add a `.test.ts` file adjacent to the code you're testing.
