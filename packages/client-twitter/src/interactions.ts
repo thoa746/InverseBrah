@@ -24,16 +24,13 @@ import { buildConversationThread, sendTweet, wait } from "./utils.ts";
 export const twitterMessageHandlerTemplate =
     `{{timeline}}
 
-# Knowledge
-{{knowledge}}
+{{providers}}
 
 # Task: Generate a post for the character {{agentName}}.
 About {{agentName}} (@{{twitterUserName}}):
 {{bio}}
 {{lore}}
 {{topics}}
-
-{{providers}}
 
 {{characterPostExamples}}
 
@@ -78,8 +75,8 @@ export class TwitterInteractionClient extends ClientBase {
             this.handleTwitterInteractions();
             setTimeout(
                 handleTwitterInteractionsLoop,
-                (Math.floor(Math.random() * (5 - 2 + 1)) + 2) * 60 * 1000
-            ); // Random interval between 2-5 minutes
+                (Math.random() * (5 - 1) + 1) * 60 * 1000
+            ); // Random interval between 1 and 5 minutes.
         };
         handleTwitterInteractionsLoop();
     }
@@ -150,6 +147,7 @@ export class TwitterInteractionClient extends ClientBase {
 
                     try {
                         if (this.lastCheckedTweetId) {
+
                             fs.writeFileSync(
                                 this.tweetCacheFilePath,
                                 this.lastCheckedTweetId.toString(),
@@ -259,10 +257,10 @@ export class TwitterInteractionClient extends ClientBase {
                     url: tweet.permanentUrl,
                     inReplyTo: tweet.inReplyToStatusId
                         ? stringToUuid(
-                              tweet.inReplyToStatusId +
-                                  "-" +
-                                  this.runtime.agentId
-                          )
+                            tweet.inReplyToStatusId +
+                            "-" +
+                            this.runtime.agentId
+                        )
                         : undefined,
                 },
                 userId: userIdUUID,
@@ -352,7 +350,7 @@ export class TwitterInteractionClient extends ClientBase {
                 }
                 const debugFileName = `tweets/tweet_generation_${tweet.id}.txt`;
                 fs.writeFileSync(debugFileName, responseInfo);
-                await wait();
+                await wait(15 * 60 * 1000, 30 * 60 * 1000);
             } catch (error) {
                 console.error(`Error sending response tweet: ${error}`);
             }
